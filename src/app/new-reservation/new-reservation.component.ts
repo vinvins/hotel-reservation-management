@@ -18,21 +18,6 @@ guestIdValue :string = "";
 constructor(private formBuilder :FormBuilder, private reservationSrc :ReservationService, private router :Router, private activatedRoute :ActivatedRoute){}
   
 ngOnInit(): void {
-
-  this.guestIdValue=this.activatedRoute.snapshot.params["id"];
-if(this.guestIdValue != "")
-  {
-    //Initialize values
-   let reservationValue = this.reservationSrc.getReservation(this.guestIdValue);
-   this.reservationForm=this.formBuilder.group({
-    guestName:[reservationValue?.guestName,[Validators.required,Validators.maxLength(30),Validators.minLength(2)]],
-    guestEmail:[reservationValue?.guestEmail,[Validators.required,Validators.email]],
-    checkInDate:[reservationValue?.checkInDate,Validators.required],
-    checkOutDate:[reservationValue?.checkOutDate,Validators.required],
-    roomNumber:[reservationValue?.roomNumber,Validators.required]
-   });
-  }
-else{
   this.reservationForm=this.formBuilder.group({
     guestName:['',[Validators.required,Validators.maxLength(30),Validators.minLength(2)]],
     guestEmail:['',[Validators.required,Validators.email]],
@@ -40,7 +25,18 @@ else{
     checkOutDate:['',Validators.required],
     roomNumber:['',Validators.required]
    });
-}
+  this.guestIdValue=this.activatedRoute.snapshot.params["id"];
+if(this.guestIdValue != "")
+  {
+    //Initialize values
+    this.reservationSrc.getReservation(this.guestIdValue).subscribe(reservationValue=>{
+      if(reservationValue){
+        this.reservationForm.patchValue(reservationValue);
+      }
+      
+    });
+  
+  }
 
 
   }
@@ -54,7 +50,9 @@ AddNewReservation() {
     {
    //Edit the form
      
-   this.reservationSrc.updateReservation(this.reservationForm.value,this.guestIdValue);
+   this.reservationSrc.updateReservation(this.reservationForm.value, this.guestIdValue).subscribe(()=>{
+    console.log("updated successfully");
+   });
     }
     else{
       //Add New
@@ -63,7 +61,9 @@ AddNewReservation() {
   
  let reservationNew :Reservation = this.reservationForm.value;
       reservationNew.guestId=guid;
-      this.reservationSrc.addReservation(reservationNew);
+      this.reservationSrc.addReservation(reservationNew).subscribe(()=>{
+        console.log("added successfully");
+      });
 
     }
     

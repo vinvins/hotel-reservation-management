@@ -1,55 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Reservation } from '../models/reservation';
-
+import {HttpClient} from '@angular/common/http'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService  {
   reservations :Reservation[]=[];
-  
-  constructor(){
-  
+  apiUrl :string="http://localhost:3002";
 
-        let reslist=localStorage.getItem("myReservationList");    
-        this.reservations=reslist? JSON.parse(reslist):[];
-     
-
-  }
-
- 
+  constructor(private http :HttpClient){}
 
   //CRUD
-getReservations() :Reservation[]{
-return this.reservations;
+getReservations() :Observable<Reservation[]>{
+return this.http.get<Reservation[]>(this.apiUrl + "/reservations");
 }
 
- getReservation(ID :string) :Reservation | undefined{
-   return this.reservations.find(res=>res.guestId===ID);
+ getReservation(ID :string) :Observable<Reservation>{
+   return this.http.get<Reservation>(this.apiUrl + "/reservation/" + ID);
  }
 
-addReservation(newReservation :Reservation) :void{
+addReservation(newReservation :Reservation) : Observable<void>{
 
 
-  this.reservations.push(newReservation);
-   localStorage.setItem("myReservationList",JSON.stringify(this.reservations)); 
+return this.http.post<void>(this.apiUrl+"/reservation",newReservation);
+
 
 }
 
- deleteReservation(ID :string) :void{
-   let reservationIndex=this.reservations.findIndex(res=> res.guestId===ID);
-   this.reservations.splice(reservationIndex,1);
-   localStorage.setItem("myReservationList",JSON.stringify(this.reservations)); 
-}
+ deleteReservation(ID :string) :Observable<void>{
+  return this.http.delete<void>(this.apiUrl + "/reservation/" + ID);
+   }
 
- updateReservation(updatedReservation :Reservation, guestId :string) :void{
- 
-   let reservationIndex=this.reservations.findIndex(res=> res.guestId===guestId);  
 
-   updatedReservation.guestId=guestId;
 
-    this.reservations[reservationIndex]=updatedReservation;
-   localStorage.setItem("myReservationList",JSON.stringify(this.reservations)); 
+ updateReservation(updatedReservation :Reservation,guestId :string) :Observable<void>{
+  return this.http.put<void>(this.apiUrl+"/reservation/" +guestId,updatedReservation);
+
+
  }
 
 }
