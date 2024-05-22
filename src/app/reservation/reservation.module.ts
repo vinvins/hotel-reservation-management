@@ -4,7 +4,7 @@ import { ReservationListComponent } from '../reservation-list/reservation-list.c
 import { NewReservationComponent } from '../new-reservation/new-reservation.component';
 import { ReservationDetailComponent } from '../reservation-detail/reservation-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class ReservationModule { }
