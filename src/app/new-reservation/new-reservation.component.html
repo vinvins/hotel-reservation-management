@@ -2,38 +2,38 @@
     <div class="card mt-5 text-center">
 
     
-<form>
+<form [formGroup]="reservationForm" (ngSubmit)="AddNewReservation()">
     <div class="row mt-3">
         <div class="col" >
             <label class="ml-5">Name</label>
-            <input class="ml-5 form-Control" type="text" />
-        </div>   
+            <input class="ml-5 form-Control" type="text" formControlName="guestName" />
+        </div>  
     </div>
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Email</label>
-            <input class="ml-5 form-Control" type="email" />
+            <input class="ml-5 form-Control" type="email" formControlName="guestEmail" />
         </div>       
     </div>
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Checkin Date</label>
-        <input class="ml-5 form-Control" type="date" />
+        <input class="ml-5 form-Control" type="date"  formControlName="checkInDate"/>
         </div>        
     </div>
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Checkout Date</label>
-            <input class="ml-5 form-Control" type="date" />
+            <input class="ml-5 form-Control" type="date" formControlName="checkOutDate" />
         </div>       
     </div>
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Room Number</label>
-        <input class="ml-5 form-Control" type="number" />
+        <input class="ml-5 form-Control" type="number" formControlName="roomNumber" />
         </div>        
     </div>
-    <button class="btn btn-success mt-5" type="submit">Add</button>
+    <button [disabled]="this.reservationForm.invalid" class="btn btn-success mt-5" type="submit">Add</button>
 </form>
 </div>
 </div>
