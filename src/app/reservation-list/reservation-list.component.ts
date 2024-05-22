@@ -19,6 +19,8 @@ export class ReservationListComponent implements OnInit {
    
   }
 
-
+  DeleteReservation(guestId :string){
+  this.Reservationsrv.deleteReservation(guestId);
+  }
 
 }

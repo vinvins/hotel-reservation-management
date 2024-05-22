@@ -42,8 +42,12 @@ addReservation(newReservation :Reservation) :void{
    localStorage.setItem("myReservationList",JSON.stringify(this.reservations)); 
 }
 
- updateReservation(updatedReservation :Reservation) :void{
-   let reservationIndex=this.reservations.findIndex(res=> res.guestId===updatedReservation.guestId);  
+ updateReservation(updatedReservation :Reservation, guestId :string) :void{
+ 
+   let reservationIndex=this.reservations.findIndex(res=> res.guestId===guestId);  
+
+   updatedReservation.guestId=guestId;
+
     this.reservations[reservationIndex]=updatedReservation;
    localStorage.setItem("myReservationList",JSON.stringify(this.reservations)); 
  }

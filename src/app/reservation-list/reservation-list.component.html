@@ -21,8 +21,8 @@
                     <td>{{res.checkOutDate | date:"MM-dd-yy"}}</td>
                     <td>{{res.roomNumber}}</td>
                     <td>
-                        <button class="btn btn-primary" type="button">Details</button>
-                        <button class="ml-3 btn btn-secondary" type="button">Delete</button>
+                        <button class="btn btn-primary" type="button" [routerLink]="['/edit',res.guestId]" >Edit</button>
+                        <button (click)="DeleteReservation(res.guestId)" class="ml-3 btn btn-secondary" type="button">Delete</button>
                     </td>
                     </tr>
                 </tbody>
