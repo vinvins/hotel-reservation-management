@@ -7,32 +7,56 @@
         <div class="col" >
             <label class="ml-5">Name</label>
             <input class="ml-5 form-Control" type="text" formControlName="guestName" />
-        </div>  
+            <div *ngIf="this.reservationForm.get('guestName')?.invalid && this.reservationForm.get('guestName')?.touched">
+                <span style="color: red;">Guest Name is required</span>
+            </div>
+        </div> 
+       
     </div>
+
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Email</label>
             <input class="ml-5 form-Control" type="email" formControlName="guestEmail" />
-        </div>       
+            <div *ngIf="this.reservationForm.get('guestEmail')?.invalid && this.reservationForm.get('guestEmail')?.touched">
+                <span style="color: red;">Guest Email is required</span>
+            </div>
+        </div> 
     </div>
+   
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Checkin Date</label>
         <input class="ml-5 form-Control" type="date"  formControlName="checkInDate"/>
-        </div>        
+        <div *ngIf="this.reservationForm.get('checkInDate')?.invalid && this.reservationForm.get('checkInDate')?.touched">
+            <span style="color: red;">Check-In Date is required</span>
+        </div>    
+    </div>    
+           
     </div>
+  
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Checkout Date</label>
             <input class="ml-5 form-Control" type="date" formControlName="checkOutDate" />
-        </div>       
+            <div *ngIf="this.reservationForm.get('checkOutDate')?.invalid && this.reservationForm.get('checkOutDate')?.touched">
+                <span style="color: red;">Check-Out Date is required</span>
+            </div>
+        </div> 
+            
     </div>
+ 
     <div class="row mt-3">
         <div class="col">
             <label class="ml-5">Room Number</label>
         <input class="ml-5 form-Control" type="number" formControlName="roomNumber" />
-        </div>        
+        <div *ngIf="this.reservationForm.get('roomNumber')?.invalid && this.reservationForm.get('roomNumber')?.touched">
+            <span style="color: red;">Room Number is required</span>
+        </div>    
+    </div> 
+              
     </div>
+    
     <button [disabled]="this.reservationForm.invalid" class="btn btn-success mt-5" type="submit">Add</button>
 </form>
 </div>
